@@ -1,0 +1,178 @@
+# Скопируйте в config.yaml и поправьте под себя.
+roles:
+  - php
+  - golang
+  - go-разработчик
+  - go developer
+  - backend
+  - бэкенд
+
+skills:
+  - symfony
+  - kafka
+  - rabbitmq
+  - elasticsearch
+  - kubernetes
+  - microservices
+  - high-load
+
+stop_words:
+  - junior
+  - стажёр
+  - стажер
+  - wordpress
+  - bitrix
+  - битрикс
+  - 1c-bitrix
+  - drupal
+
+salary_min_usd: 3000
+allow_unknown_salary: true   # вакансии без зарплаты показываем с пометкой
+
+remote: true
+hybrid_cities:
+  - Москва
+  - Санкт-Петербург
+  - Минск
+  - Вильнюс
+  - Варшава
+  - Тбилиси
+  - Ереван
+  - Дубай
+
+# Собираем, но не показываем и не откликаемся (включается командой /unpark)
+parked_companies:
+  - Т-Банк
+  - Тинькофф
+  - Tinkoff
+  - T-Bank
+  - Ozon
+  - Озон
+  - Авито
+  - Avito
+  - VK
+  - ВКонтакте
+  - Wildberries
+  - Вайлдберриз
+  - Wildberries
+
+# Не показываем никогда
+blacklist: []
+
+# Порог оценки соответствия (0–100): вакансии ниже не показываются.
+# Оценка считается по правилам: совпавший стек из skills, уровень, удалёнка, зарплата.
+match_threshold: 35
+
+# Как писать письма. none — шаблоны из достижений (работает всегда).
+# ollama — локальная модель на вашем компьютере (бесплатно, данные никуда не уходят).
+# Если модель недоступна или выдумала факты, бот сам вернётся к шаблону.
+llm:
+  provider: none            # поставьте ollama после установки Ollama и модели
+  ollama_url: http://localhost:11434
+  ollama_model: qwen2.5:7b-instruct
+  timeout_seconds: 180
+
+# Профиль кандидата для писем (достижения из резюме)
+candidate_file: candidate.yaml
+
+# Название вакансии должно подходить под одну из ролей (регулярки)
+title_roles:
+  - 'engineer'
+  - 'developer'
+  - 'разработчик'
+  - 'программист'
+  - 'backend'
+  - 'бэкенд'
+  - 'бекенд'
+  - 'tech lead'
+  - 'team lead'
+  - 'тимлид'
+
+# В названии или описании должна встретиться хотя бы одна технология.
+# (?i) — без учёта регистра. Go ищем только как «Go» с большой буквы (Go-To-Market игнорируется).
+tech_any:
+  - '(?i)\bphp\b'
+  - '(?i)\bgolang\b'
+  - '\bGo\b'
+
+# Удалёнка «только для США» и т. п. нам не подходит
+exclude_locations:
+  - united states
+  - usa
+  - u.s.
+  - canada
+  - india
+  - brazil
+  - mexico
+  - australia
+
+poll_minutes: 10
+max_age_hours: 72
+max_per_cycle: 10
+
+# Курсы к USD (сколько USD в 1 единице). Приблизительные — поправьте при необходимости.
+usd_rates:
+  EUR: 1.10
+  GBP: 1.30
+  RUR: 0.0125
+  RUB: 0.0125
+  KZT: 0.002
+  BYN: 0.31
+
+# Компании по системам найма. slug — часть адреса карьерной страницы:
+#   boards.greenhouse.io/<slug>, jobs.lever.co/<slug>, jobs.ashbyhq.com/<slug>
+sources:
+  greenhouse:
+    # Go-компании, у которых сейчас есть открытые бэкенд-вакансии (проверено 10.11.2026)
+    - canonical      # Golang, remote Worldwide/EMEA
+    - sumup          # Go/PHP-бэкенд, София/Вильнюс
+    - nebius         # бэкенд, Амстердам/Прага/Германия
+    - elastic        # Go, remote Испания/Португалия
+    - grafanalabs    # remote по странам ЕС
+    - gitlab
+    - cloudflare
+    - deliveroo
+    - monzo
+    - commercetools
+    - veriff
+    - adyen
+    - jetbrains
+    - dropbox
+    - mongodb
+    - datadog
+    - scout24
+    - hellofresh
+  lever: []
+  ashby:
+    - supabase       # Remote, Global
+    - resend         # Remote, Europe
+
+  # Публичные Telegram-каналы (без @). Читаем веб-превью t.me/s/<канал>: аккаунт и ключи не нужны.
+  telegram:
+    - rabotaphp          # PHP вакансии
+    - php_rabota         # PHP_Jobs
+    - runello_rus_php    # PHP / Laravel / Bitrix
+    - jobforphp          # Job for PHP
+    - GolangJobsit       # Golang Jobs
+    - forgoandrust       # Go и Rust, вакансии за рубежом
+    - opento_dev         # Dev Jobs, вакансии за рубежом
+    - remoteit           # Remote IT
+
+  # Хабр Карьера — официальная RSS-лента. Параметры как в адресе поиска на сайте.
+  habr_career:
+    - "q=php&type=all&remote=true&sort=date"
+    - "q=golang&type=all&remote=true&sort=date"
+    - "q=php&type=all&sort=date"       # офис и гибрид: города проверяет hybrid_cities
+    - "q=golang&type=all&sort=date"
+
+  # Рассылки вакансий на почту (IMAP). Включаются, когда в .env заданы IMAP_USER и IMAP_PASSWORD.
+  # Бот читает только письма от перечисленных сайтов, ящик открывает на чтение: ничего не помечает и не удаляет.
+  # hh.ru и geekjob.ru подключены по умолчанию. Вакансии из писем уже подобраны вашим сохранённым поиском на сайте,
+  # поэтому проверки роли, стека и формата работы к ним не применяются (зарплата, возраст, стоп-слова и список «отложено» работают).
+  mail:
+    folder: INBOX
+    lookback_days: 3
+    senders: []
+    # Дополнительный сайт: домен в поле From и регулярка ссылки на вакансию, в первой группе — идентификатор.
+    # - domain: wantapply.com
+    #   link: 'https://wantapply\.com/[^"\s]*/(\d+)'

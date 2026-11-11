@@ -1,0 +1,10 @@
+.env
+config.yaml
+*.db
+*.db-shm
+*.db-wal
+/bin/
+.idea/
+.DS_Store
+candidate.yaml
+samples/

@@ -1,0 +1,44 @@
+# ПРИМЕР профиля кандидата для писем. Скопируйте в candidate.yaml и замените на свои данные:
+#   cp candidate.example.yaml candidate.yaml
+# Бот пишет письма только из этих фактов и ничего не добавляет от себя.
+# Контакты (телефон, почта) сюда не вносим: в письма они не попадают.
+# Этот файл же используют тесты, поэтому имена и числа из примера менять в тестах не нужно.
+name: Анна
+name_en: Anna
+headline_ru: Senior PHP-разработчик (Symfony, высоконагруженные микросервисы)
+headline_en: Senior PHP developer (Symfony, high-load microservices)
+years_php: 10
+go_years: 1
+
+# Достижения: бот выбирает до трёх самых близких к вакансии по тегам.
+achievements:
+  - tags: [elasticsearch, search, performance, high-load, api, latency]
+    ru: "Ускорила API листингов товаров в 2,7 раза (с 400 до 150 мс) на пике около 3 600 RPS: сделала отдельный индекс в Elasticsearch."
+    en: "I made the product-listing API 2.7x faster (400 ms to 150 ms) at about 3,600 RPS by building a dedicated Elasticsearch index."
+  - tags: [mysql, sql, database, postgresql, optimization, percona, performance]
+    ru: "Сократила число сканируемых строк в нагруженном запросе в 5 раз (с 1 млн до 200 тыс.): нашла нужный индекс с помощью инструментов Percona."
+    en: "I cut rows scanned in a high-traffic query 5x (1M to 200K) by finding the right index with Percona tools."
+  - tags: [microservices, migration, monolith, architecture, go, golang, symfony, ddd, cqrs, event-driven]
+    ru: "Участвовала в проектировании перехода от монолита к микросервисам (Symfony для CRUD, Go и Lua для read-heavy сервисов); обработка обновлений категорий стала быстрее на 40%."
+    en: "I co-designed the move from a monolith to microservices (Symfony for CRUD, Go and Lua for read-heavy services); category updates became 40% faster."
+  - tags: [symfony, php, microservices, phpunit, testing, ci, gitlab, high-load, backend]
+    ru: "Отвечаю за 24 микросервиса на PHP 8 и Symfony (около 3 600 RPS); покрытие тестами 80% контролируется в GitLab CI."
+    en: "I own 24 PHP 8 / Symfony microservices (about 3,600 RPS) with 80% test coverage enforced in GitLab CI."
+  - tags: [mongodb, incident, production, reliability, rollback]
+    ru: "Руководила разбором production-инцидента с MongoDB: нашла причину за минуту и восстановила сервис без потери данных."
+    en: "I led the fix of a production MongoDB incident: found the root cause in one minute and restored the service with no data loss."
+  - tags: [code review, phpstan, psalm, quality, lead, team, mentoring]
+    ru: "Провожу code review (5–10 MR в неделю) и ввела чек-лист MR: PHPUnit, PHPStan, PHP-CS-Fixer."
+    en: "I review 5-10 merge requests a week and introduced an MR checklist: PHPUnit, PHPStan, PHP-CS-Fixer."
+  - tags: [kubernetes, docker, ci/cd, gitlab, devops, deploy, release]
+    ru: "Выкатываю релизы в Kubernetes через GitLab CI/CD, 3–5 раз в неделю."
+    en: "I ship to Kubernetes through GitLab CI/CD, 3-5 releases a week."
+  - tags: [ai, gpt, llm, ml, machine learning, openai]
+    ru: "Сделала обработку отзывов на базе GPT (около 100 в день): ручная модерация сократилась с 10 до 1 часа в неделю."
+    en: "I built GPT-based review processing (about 100 a day): manual moderation dropped from about 10 to 1 hour a week."
+  - tags: [nginx, lua, openresty, performance, seo, sphinx]
+    ru: "Перенесла статику и обработку запросов на OpenResty (Nginx и Lua), снизив нагрузку на PHP на 80%."
+    en: "I moved static content and request handling to OpenResty (Nginx + Lua), cutting PHP load by 80%."
+
+# Порядок, если ничего не подошло по тегам
+default_achievements: [3, 0, 2]

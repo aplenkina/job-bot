@@ -1,0 +1,31 @@
+[Unit]
+Description=Job bot (поиск вакансий и уведомления в Telegram)
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=jobbot
+Group=jobbot
+WorkingDirectory=/opt/jobbot
+EnvironmentFile=/opt/jobbot/.env
+Environment=DB_PATH=/opt/jobbot/data/jobbot.db
+Environment=TZ=Europe/Minsk
+ExecStart=/opt/jobbot/jobbot -config /opt/jobbot/config.yaml
+Restart=always
+RestartSec=10
+# После аварийной остановки сторож пришлёт сообщение в Telegram (при штатной молчит)
+ExecStopPost=/opt/jobbot/notify-stop.sh
+
+# Ограничения: боту нужна только сеть и своя папка
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=true
+ReadWritePaths=/opt/jobbot/data
+ProtectKernelTunables=true
+ProtectControlGroups=true
+RestrictSUIDSGID=true
+
+[Install]
+WantedBy=multi-user.target
